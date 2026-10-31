@@ -387,6 +387,7 @@ window.UVSTUDIO_LOCALES.it = {
   "factoryResetDescription": "Ripristina la flash esterna ricostruita e il firmware di fabbrica corrispondenti alla radio. La calibrazione specifica del dispositivo viene conservata. Seleziona il modello.",
   "factoryResetK1Btn": "Ripristina UV-K1",
   "factoryResetK5V3Btn": "Ripristina UV-K5 V3",
+  "factoryResetK1CnBtn": "Ripristina UV-K1 cinese",
   "factoryResetTitle": "Ripristina il software di fabbrica di {0}",
   "factoryResetConfirm": "Hai selezionato {0}. Questa operazione ripristina l’intera flash esterna allo stato di fabbrica ricostruito e poi installa il firmware di fabbrica corrispondente. La calibrazione specifica del dispositivo viene conservata; Labs, multiboot, impostazioni personalizzate, logo, registri e slot firmware vengono cancellati. Non scollegare la radio durante la fase sulla flash esterna. Continuare?",
   "factoryResetStart": "Avvia ripristino di fabbrica",

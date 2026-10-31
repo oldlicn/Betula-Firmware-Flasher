@@ -387,6 +387,7 @@ window.UVSTUDIO_LOCALES.pl = {
   "factoryResetDescription": "Przywraca zrekonstruowaną fabryczną pamięć zewnętrzną i oprogramowanie odpowiednie dla radia. Kalibracja urządzenia zostaje zachowana. Wybierz model.",
   "factoryResetK1Btn": "Przywróć UV-K1",
   "factoryResetK5V3Btn": "Przywróć UV-K5 V3",
+  "factoryResetK1CnBtn": "Przywróć UV-K1 chiński",
   "factoryResetTitle": "Przywróć fabryczne oprogramowanie {0}",
   "factoryResetConfirm": "Wybrano {0}. Operacja przywróci całą pamięć zewnętrzną do zrekonstruowanego stanu fabrycznego, a następnie zainstaluje odpowiednie fabryczne oprogramowanie. Kalibracja urządzenia zostanie zachowana; Labs, multiboot, własne ustawienia, logo, dzienniki i sloty firmware zostaną usunięte. Nie odłączaj radia podczas zapisu pamięci zewnętrznej. Kontynuować?",
   "factoryResetStart": "Rozpocznij przywracanie fabryczne",

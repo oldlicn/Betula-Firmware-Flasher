@@ -387,6 +387,7 @@ window.UVSTUDIO_LOCALES.pt = {
   "factoryResetDescription": "Restaura a flash externa reconstruída e o firmware de fábrica correspondentes ao rádio. A calibração específica do aparelho é preservada. Selecione o modelo.",
   "factoryResetK1Btn": "Restaurar UV-K1",
   "factoryResetK5V3Btn": "Restaurar UV-K5 V3",
+  "factoryResetK1CnBtn": "Restaurar UV-K1 chinês",
   "factoryResetTitle": "Restaurar o software de fábrica do {0}",
   "factoryResetConfirm": "Selecionou o {0}. Esta operação repõe toda a flash externa no estado de fábrica reconstruído e depois instala o firmware de fábrica correspondente. A calibração específica do aparelho é preservada; Labs, multiboot, definições personalizadas, logótipo, registos e slots de firmware são apagados. Não desligue o rádio durante a etapa da flash externa. Continuar?",
   "factoryResetStart": "Iniciar reposição de fábrica",

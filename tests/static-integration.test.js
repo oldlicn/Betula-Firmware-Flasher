@@ -836,7 +836,7 @@ test('uses the shared modal UI to confirm external flash restoration', () => {
   assert.doesNotMatch(flashSource, /window\.confirm\(t\('flashRestoreConfirm'\)\)/);
 });
 
-test('provides verified two-stage factory restore workflows for UV-K1 and UV-K5 V3', () => {
+test('provides verified two-stage factory restore workflows for UV-K1, UV-K1 Chinese and UV-K5 V3', () => {
   assert.match(html, /class="nav-item nav-item-labs"[^>]+data-route="factory-reset"[^>]+data-tool-view="factory-reset"/);
   assert.match(html, /data-section-i18n="studio_nav_factory_reset"[\s\S]+data-i18n="studio_nav_labs_only"/);
   assert.match(html, /id="factory-reset-content"[^>]+role="region"/);
@@ -844,6 +844,7 @@ test('provides verified two-stage factory restore workflows for UV-K1 and UV-K5 
   assert.match(html, /class="factory-reset-actions"/);
   assert.match(html, /id="factoryResetK1Btn"[^>]+data-factory-reset-target="k1"/);
   assert.match(html, /id="factoryResetK5V3Btn"[^>]+data-factory-reset-target="k5v3"/);
+  assert.match(html, /id="factoryResetK1CnBtn"[^>]+data-factory-reset-target="k1cn"/);
   assert.match(html, /id="factoryResetModal"[^>]+role="dialog"[^>]+aria-modal="true"/);
   assert.match(flashSource, /factoryResetButtons\.forEach\(button => \{ button\.disabled = busy; \}\)/);
   assert.match(flashSource, /showFactoryResetModal\('unsupported', target\)/);
@@ -851,6 +852,7 @@ test('provides verified two-stage factory restore workflows for UV-K1 and UV-K5 
   assert.match(flashSource, /const FACTORY_STATE_B = 0x101000/);
   assert.match(flashSource, /label: 'UV-K1'[\s\S]+K1_External_Flash_Factory_Reconstructed\.bin[\s\S]+quansheng\.k1\.stock\.firmware\.v7\.03\.01\.bin/);
   assert.match(flashSource, /label: 'UV-K5 V3'[\s\S]+K5V3_External_Flash_Factory_Reconstructed\.bin[\s\S]+quansheng\.k5v3\.stock\.firmware\.v7\.00\.11\.bin/);
+  assert.match(flashSource, /label: 'UV-K1 Chinese'[\s\S]+K1_CN_External_Flash_Factory\.bin[\s\S]+quansheng\.k1\.cn\.stock\.firmware\.v7\.02\.07\.bin/);
   assert.match(flashSource, /for \(let address = 0; address < FLASH_TOTAL_SIZE; address \+= FLASH_SECTOR_SIZE\)/);
   assert.match(flashSource, /address === FLASH_CALIBRATION_SECTOR/);
   assert.match(flashSource, /regularSectors\.concat\(\[FACTORY_STATE_A, FACTORY_STATE_B\]\)/);
@@ -1062,6 +1064,7 @@ test('uses one consistent vocabulary for maintenance actions in every locale', (
     assert.equal('factoryResetBtn' in dictionary, false, `${file}: obsolete single-model action`);
     assert.ok(dictionary.factoryResetK1Btn, `${file}: UV-K1 factory action`);
     assert.ok(dictionary.factoryResetK5V3Btn, `${file}: UV-K5 V3 factory action`);
+    assert.ok(dictionary.factoryResetK1CnBtn, `${file}: UV-K1 Chinese factory action`);
     [
       'factoryResetTitle',
       'factoryResetConfirm',

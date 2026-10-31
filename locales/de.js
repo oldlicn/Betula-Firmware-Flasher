@@ -387,6 +387,7 @@ window.UVSTUDIO_LOCALES.de = {
   "factoryResetDescription": "Stellt den rekonstruierten Werkszustand des externen Flashs und die zum Funkgerät passende Werksfirmware wieder her. Die gerätespezifische Kalibrierung bleibt erhalten. Modell auswählen.",
   "factoryResetK1Btn": "UV-K1 wiederherstellen",
   "factoryResetK5V3Btn": "UV-K5 V3 wiederherstellen",
+  "factoryResetK1CnBtn": "UV-K1 (Chinesisch) wiederherstellen",
   "factoryResetTitle": "{0}-Werkssoftware wiederherstellen",
   "factoryResetConfirm": "Sie haben {0} ausgewählt. Der gesamte externe Flash wird auf den rekonstruierten Werkszustand zurückgesetzt und anschließend die passende Werksfirmware installiert. Die gerätespezifische Kalibrierung bleibt erhalten; Labs, Multiboot, eigene Einstellungen, Logo, Protokolle und Firmware-Slots werden gelöscht. Das Funkgerät während des externen Flash-Vorgangs nicht trennen. Fortfahren?",
   "factoryResetStart": "Werkswiederherstellung starten",

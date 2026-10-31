@@ -387,6 +387,7 @@ window.UVSTUDIO_LOCALES.zh = {
   "factoryResetDescription": "恢复与对讲机型号匹配的重建原厂外部闪存和原厂固件。设备专属校准数据会保留。请选择型号。",
   "factoryResetK1Btn": "恢复 UV-K1",
   "factoryResetK5V3Btn": "恢复 UV-K5 V3",
+  "factoryResetK1CnBtn": "恢复 UV-K1 中文版",
   "factoryResetTitle": "恢复 {0} 原厂软件",
   "factoryResetConfirm": "您选择了 {0}。此操作会将整个外部闪存重置为重建的出厂状态，然后安装匹配的原厂固件。设备专属校准数据会保留；Labs、多重启动、自定义设置、徽标、日志和固件槽会被清除。写入外部闪存期间请勿断开对讲机。是否继续？",
   "factoryResetStart": "开始恢复出厂软件",

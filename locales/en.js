@@ -387,6 +387,7 @@ window.UVSTUDIO_LOCALES.en = {
   "factoryResetDescription": "Restore the reconstructed factory external flash and stock firmware matching your radio. Device-specific calibration is preserved. Select your model.",
   "factoryResetK1Btn": "Restore UV-K1",
   "factoryResetK5V3Btn": "Restore UV-K5 V3",
+  "factoryResetK1CnBtn": "Restore UV-K1 Chinese",
   "factoryResetTitle": "Restore {0} to factory software",
   "factoryResetConfirm": "You selected {0}. This resets the entire external flash to its reconstructed factory state and then installs the matching stock firmware. Device-specific calibration is preserved; Labs, multiboot, custom settings, logo, logs and stored firmware slots are erased. Do not disconnect the radio during the external-flash step. Continue?",
   "factoryResetStart": "Start factory restore",

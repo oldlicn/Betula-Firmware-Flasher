@@ -36,6 +36,18 @@ ASSETS = (
         71712,
         "f4e5264a6f9a5436a6c75f7b217c60ba002cec04928f247392b9968c5c9458cb",
     ),
+    (
+        "assets/factory/K1_CN_External_Flash_Factory.bin",
+        "K1_CN_External_Flash_Factory.bin",
+        0x200000,
+        "5ebf78d5d3c8a7c4ce99e71ad81ddb4b655e74c7c0d2e3ab23d826de453bc8b7",
+    ),
+    (
+        "assets/factory/quansheng.k1.cn.stock.firmware.v7.02.07.bin",
+        "quansheng.k1.cn.stock.firmware.v7.02.07.bin",
+        75264,
+        "648d7ef6a4401143de7418ee61b826ab01fc9330084adc027613bcfea2ba9942",
+    ),
 )
 
 

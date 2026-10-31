@@ -387,6 +387,7 @@ window.UVSTUDIO_LOCALES.nl = {
   "factoryResetDescription": "Herstelt de gereconstrueerde externe fabrieksflash en fabrieksfirmware die bij de radio horen. De apparaatspecifieke kalibratie blijft behouden. Selecteer het model.",
   "factoryResetK1Btn": "UV-K1 herstellen",
   "factoryResetK5V3Btn": "UV-K5 V3 herstellen",
+  "factoryResetK1CnBtn": "UV-K1 Chinees herstellen",
   "factoryResetTitle": "Fabriekssoftware van {0} herstellen",
   "factoryResetConfirm": "Je hebt {0} geselecteerd. Hiermee wordt de volledige externe flash teruggezet naar de gereconstrueerde fabriekstoestand en daarna de bijbehorende fabrieksfirmware geïnstalleerd. De apparaatspecifieke kalibratie blijft behouden; Labs, multiboot, aangepaste instellingen, logo, logboeken en firmwareslots worden gewist. Koppel de radio niet los tijdens de externe-flashstap. Doorgaan?",
   "factoryResetStart": "Fabrieksherstel starten",
