@@ -39,13 +39,17 @@ body {
 .topbar-actions { display: flex; align-items: center; gap: 10px; }
 .topbar-center { flex: 1; display: flex; justify-content: center; min-width: 0; }
 .topbar-link {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 13.5px; font-weight: 600; color: var(--accent);
-    text-decoration: none; padding: 6px 12px; border-radius: 8px;
-    transition: background 0.13s, color 0.13s;
+    display: inline-flex; align-items: center;
+    font-size: 13px; font-weight: 600; color: var(--text-secondary);
+    text-decoration: none; padding: 5px 14px;
+    border: 1px solid var(--border); border-radius: 999px;
+    transition: background 0.13s, border-color 0.13s, color 0.13s;
 }
-.topbar-link:hover { background: color-mix(in oklab, var(--accent) 14%, transparent); color: var(--accent-hover); }
-.topbar-link svg { opacity: 0.85; }
+.topbar-link:hover {
+    background: color-mix(in oklab, var(--text) 7%, transparent);
+    border-color: var(--accent);
+    color: var(--text);
+}
 .flash-counter {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 6px 11px;
