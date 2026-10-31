@@ -18,7 +18,7 @@
             const value = preferences.get(key, "");
             if (value) return value;
         }
-        return "en";
+        return "zh";
     }
 
     function storeLanguage(language) {
