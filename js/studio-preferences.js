@@ -42,7 +42,9 @@
        how a release will look before it is merged. */
     const DEV_CATALOG_KEY = "uvstudio.devCatalog";
     const DEV_CATALOG_BRANCH = "feature_update_v7";
-    const DEFAULT_CATALOG_REPO = "armel/uv-k1-k5v3-firmware-custom";
+    // Default to this project's own repository so the firmware catalog is sourced
+    // from the archive/ folder committed here; setCatalogRepo() can override it.
+    const DEFAULT_CATALOG_REPO = "oldlicn/Betula-Firmware-Flasher";
     const DEFAULT_CATALOG_ARCHIVE_PATH = "archive";
     const CATALOG_REPO_KEY = "uvstudio.catalogRepo";
     const CATALOG_ARCHIVE_PATH_KEY = "uvstudio.catalogArchivePath";
