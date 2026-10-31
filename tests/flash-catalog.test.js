@@ -13,7 +13,8 @@ const {
   hasSharedChirpDriver,
   isOffered,
   isSlotOffered,
-  mergeCatalogFiles
+  mergeCatalogFiles,
+  manifestFirmwareEntries
 } = catalog;
 
 // Real filenames from armel/uv-k1-k5v3-firmware-custom/archive.
@@ -157,6 +158,30 @@ test('groups offered entries newest-first and drops everything else', () => {
   assert.equal(groups.get('fusion_k1').length, 0);
   assert.equal(groups.get('fusion_k5v3').length, 0);
   assert.equal(groups.get('stock').length, 2);
+});
+
+test('builds catalog entries from a GitHub Pages manifest', () => {
+  const manifest = {
+    firmwares: [
+      { name: 'f4hwn.fusion.v6.3.0 CN B.bin', size: 111228, sha256: 'deadbeef' },
+      { name: 'f4hwn.fieldops.v6.3.0 CN.bin', size: 117232 }
+    ]
+  };
+  const entries = manifestFirmwareEntries(manifest, 'https://oldlicn.github.io/Betula-Firmware-Flasher');
+  assert.equal(entries.length, 2);
+  assert.equal(entries[0].name, 'f4hwn.fusion.v6.3.0 CN B.bin');
+  assert.equal(entries[0].size, 111228);
+  assert.equal(
+    entries[0].download_url,
+    'https://oldlicn.github.io/Betula-Firmware-Flasher/archive/f4hwn.fusion.v6.3.0%20CN%20B.bin'
+  );
+  assert.equal(
+    entries[1].download_url,
+    'https://oldlicn.github.io/Betula-Firmware-Flasher/archive/f4hwn.fieldops.v6.3.0%20CN.bin'
+  );
+  // Missing or malformed manifests yield no entries.
+  assert.deepEqual(manifestFirmwareEntries(null, 'x'), []);
+  assert.deepEqual(manifestFirmwareEntries({ firmwares: 'nope' }, 'x'), []);
 });
 
 test('formats compact, human option labels', () => {

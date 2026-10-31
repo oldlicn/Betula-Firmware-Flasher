@@ -1,0 +1,45 @@
+{
+  "generatedAt": "2026-10-31T15:47:30.136Z",
+  "firmwares": [
+    {
+      "name": "f4hwn.fieldops.v6.3.0 CN B.bin",
+      "size": 117512,
+      "sha256": "5b2ec1fca3f9c92aa7b6bb12b25e9f525b6ac1e2a31dbf70b1fdbf01a66c8fd5"
+    },
+    {
+      "name": "f4hwn.fieldops.v6.3.0 CN.bin",
+      "size": 117232,
+      "sha256": "5dd50c38c3b5802eca2c23c06b0d16b96f639f76c87d36117032c5287df4ef88"
+    },
+    {
+      "name": "f4hwn.fusion.v6.3.0 CN B.bin",
+      "size": 111228,
+      "sha256": "d1e94e3408d379644cfb9724092f42d55f956236e61d7edb9e1c1b0e99dab528"
+    },
+    {
+      "name": "f4hwn.fusion.v6.3.0 CN.bin",
+      "size": 110844,
+      "sha256": "7260c72923e172c6dcfd69d1fd413d4eeff9b5acf960fa4e6cc04f1dda44306f"
+    },
+    {
+      "name": "f4hwn.labs.v6.3.0 CN B.bin",
+      "size": 120760,
+      "sha256": "86c26617bdd2d5bb444406a2ce212824798b76d04292a17706e1a852d3b6bdae"
+    },
+    {
+      "name": "f4hwn.labs.v6.3.0 CN.bin",
+      "size": 120480,
+      "sha256": "706fc65a8b0f391331f86f62b9ed612d4e39a7416ee2a63c47658f19b58e4e31"
+    },
+    {
+      "name": "f4hwn.transfer.v6.3.0 CN B.bin",
+      "size": 119364,
+      "sha256": "a51178bbc9bb3385938fb2f6d09ae786b9fc4c893f419f8e0e9b6c7f6fe823eb"
+    },
+    {
+      "name": "f4hwn.transfer.v6.3.0 CN.bin",
+      "size": 118976,
+      "sha256": "8f04053caada75195f3e6ab02656c7bf3981f633602ca41687284d3d78fc9f3e"
+    }
+  ]
+}

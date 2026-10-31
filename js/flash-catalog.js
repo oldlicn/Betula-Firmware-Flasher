@@ -39,6 +39,24 @@
   const DEVELOPMENT_API_URL =
     `https://api.github.com/repos/${REPO}/contents/${ARCHIVE_PATH}/${DEVELOPMENT_FILENAME}` +
     `?ref=${encodeURIComponent(DEVELOPMENT_BRANCH)}`;
+
+  // Optional GitHub Pages mirror: serve the catalog listing (a manifest JSON) and
+  // the firmware binaries from *.github.io, which is far faster and more reliable
+  // than api.github.com / raw.githubusercontent.com from some regions. Falls back to
+  // the GitHub contents API when the manifest is unavailable.
+  const PAGES_BASE = (typeof globalThis !== 'undefined' && globalThis.UVStudioPreferences &&
+    typeof globalThis.UVStudioPreferences.catalogPagesBase === 'function')
+    ? globalThis.UVStudioPreferences.catalogPagesBase()
+    : '';
+  const MANIFEST_REL_PATH = (typeof globalThis !== 'undefined' && globalThis.UVStudioPreferences &&
+    typeof globalThis.UVStudioPreferences.catalogManifestPath === 'function')
+    ? globalThis.UVStudioPreferences.catalogManifestPath()
+    : 'archive/catalog.json';
+  const joinPath = (base, rel) =>
+    `${String(base).replace(/\/+$/, '')}/${String(rel).replace(/^\/+/, '')}`;
+  const MANIFEST_URL = PAGES_BASE ? joinPath(PAGES_BASE, MANIFEST_REL_PATH) : '';
+  const DEV_FILE_PAGES_URL = PAGES_BASE ? joinPath(PAGES_BASE, `${ARCHIVE_PATH}/${DEVELOPMENT_FILENAME}`) : '';
+
   // Only current firmwares are offered: v5.0 and newer, no beta or SA818 builds.
   const MIN_MAJOR_VERSION = 5;
   // Multiboot first ships with v6; older images cannot return to the slot menu.
@@ -204,6 +222,22 @@
     return label;
   }
 
+  // Map a Pages-hosted manifest's firmware entries into the { name, size,
+  // download_url } shape the rest of the catalog pipeline expects. The download
+  // URL is built against the GitHub Pages base so binaries are fetched from the
+  // fast mirror rather than raw.githubusercontent.com.
+  function manifestFirmwareEntries(manifest, pagesBase) {
+    if (!manifest || !Array.isArray(manifest.firmwares)) return [];
+    const base = String(pagesBase || '').replace(/\/+$/, '');
+    return manifest.firmwares
+      .filter(f => f && typeof f.name === 'string')
+      .map(f => ({
+        name: f.name,
+        size: Number(f.size) || 0,
+        download_url: `${base}/archive/${encodeURIComponent(f.name)}`
+      }));
+  }
+
   const pureApi = {
     parseFirmwareName,
     compareVersionDesc,
@@ -212,7 +246,8 @@
     hasSharedChirpDriver,
     isOffered,
     isSlotOffered,
-    mergeCatalogFiles
+    mergeCatalogFiles,
+    manifestFirmwareEntries
   };
 
   // ========== BROWSER RUNTIME ==========
@@ -260,6 +295,39 @@
           name: item.name,
           size: item.size,
           download_url: item.download_url
+        };
+      } catch (error) {
+        return null;
+      }
+    }
+
+    // Preferred source: a manifest JSON served from GitHub Pages (fast, reliable
+    // from regions where api.github.com is throttled). Returns null when missing
+    // or unreachable so the caller can fall back to the GitHub contents API.
+    async function fetchCatalogManifest() {
+      if (!MANIFEST_URL) return null;
+      try {
+        const response = await fetch(MANIFEST_URL, { cache: 'no-cache' });
+        if (!response.ok) return null;
+        const data = await response.json();
+        const entries = manifestFirmwareEntries(data, PAGES_BASE);
+        return entries.length ? entries : null;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    // Rolling dev build, read directly from Pages when a manifest is in use.
+    async function fetchDevelopmentFromPages() {
+      if (!DEV_FILE_PAGES_URL) return null;
+      try {
+        const response = await fetch(DEV_FILE_PAGES_URL, { cache: 'no-cache' });
+        if (!response.ok) return null;
+        const buf = await response.arrayBuffer();
+        return {
+          name: DEVELOPMENT_FILENAME,
+          size: buf.byteLength,
+          download_url: DEV_FILE_PAGES_URL
         };
       } catch (error) {
         return null;
@@ -314,20 +382,28 @@
       if (loading || loaded || Date.now() < retryUntil) return;
       loading = true;
       try {
-        const response = await fetch(API_URL, { cache: 'no-cache' });
-        if (!response.ok) {
-          // Rate limited: back off until GitHub's window resets so we stop
-          // hammering the API on every Flash-view open.
-          const remaining = response.headers.get('x-ratelimit-remaining');
-          const reset = Number(response.headers.get('x-ratelimit-reset'));
-          if ((response.status === 403 || response.status === 429) && remaining === '0' && reset) {
-            retryUntil = reset * 1000;
+        // Prefer a GitHub Pages-hosted manifest (much faster / more reliable from
+        // some regions). Fall back to the GitHub contents API when it is missing.
+        let files = await fetchCatalogManifest();
+        if (files) {
+          const developmentFile = await fetchDevelopmentFromPages();
+          files = mergeCatalogFiles(files, developmentFile);
+        } else {
+          const response = await fetch(API_URL, { cache: 'no-cache' });
+          if (!response.ok) {
+            // Rate limited: back off until GitHub's window resets so we stop
+            // hammering the API on every Flash-view open.
+            const remaining = response.headers.get('x-ratelimit-remaining');
+            const reset = Number(response.headers.get('x-ratelimit-reset'));
+            if ((response.status === 403 || response.status === 429) && remaining === '0' && reset) {
+              retryUntil = reset * 1000;
+            }
+            throw new Error(`HTTP ${response.status}`);
           }
-          throw new Error(`HTTP ${response.status}`);
+          const stableFiles = await response.json();
+          const developmentFile = await fetchDevelopmentFile();
+          files = mergeCatalogFiles(stableFiles, developmentFile);
         }
-        const stableFiles = await response.json();
-        const developmentFile = await fetchDevelopmentFile();
-        const files = mergeCatalogFiles(stableFiles, developmentFile);
         groups = categorize(files);
         const counts = render();
         showCatalog(counts.flash > 0, counts.slots > 0);

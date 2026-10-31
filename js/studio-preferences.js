@@ -82,8 +82,40 @@
         return set(CATALOG_ARCHIVE_PATH_KEY, path);
     }
 
+    // A firmware manifest served from GitHub Pages is far faster and more reliable
+    // than the api.github.com contents endpoint from some regions. The Pages base
+    // URL is derived from the catalog repository (owner/repo -> owner.github.io/repo)
+    // but can be overridden for custom domains.
+    const CATALOG_PAGES_BASE_KEY = "uvstudio.catalogPagesBase";
+    const CATALOG_MANIFEST_PATH_KEY = "uvstudio.catalogManifestPath";
+
+    function derivePagesBase(repo) {
+        const slash = String(repo || "").indexOf("/");
+        if (slash <= 0) return "";
+        const owner = repo.slice(0, slash);
+        const name = repo.slice(slash + 1);
+        return `https://${owner}.github.io/${name}`;
+    }
+
+    function catalogPagesBase() {
+        return get(CATALOG_PAGES_BASE_KEY, derivePagesBase(catalogRepo()));
+    }
+
+    function setCatalogPagesBase(base) {
+        return set(CATALOG_PAGES_BASE_KEY, base);
+    }
+
+    function catalogManifestPath() {
+        return get(CATALOG_MANIFEST_PATH_KEY, "archive/catalog.json");
+    }
+
+    function setCatalogManifestPath(path) {
+        return set(CATALOG_MANIFEST_PATH_KEY, path);
+    }
+
     window.UVStudioPreferences = Object.freeze({
         get, set, remove, devCatalog, setDevCatalog, catalogBranch,
-        catalogRepo, setCatalogRepo, catalogArchivePath, setCatalogArchivePath
+        catalogRepo, setCatalogRepo, catalogArchivePath, setCatalogArchivePath,
+        catalogPagesBase, setCatalogPagesBase, catalogManifestPath, setCatalogManifestPath
     });
 })();
