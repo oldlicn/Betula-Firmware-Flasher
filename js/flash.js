@@ -381,8 +381,10 @@ function applyNavigationCapabilities(capabilities) {
 
   navigationCapabilities = resolvedCapabilities;
   updateNavigationCapability(appsNavigationItem, resolvedCapabilities?.apps);
-  updateNavigationCapability(externalFlashNavigationItem, resolvedCapabilities?.externalFlash);
-  updateNavigationCapability(factoryResetNavigationItem, resolvedCapabilities?.externalFlash);
+  // External flash and factory reset stay navigable regardless of the capability
+  // probe: never grey them out or block clicks based on detection results.
+  updateNavigationCapability(externalFlashNavigationItem, true);
+  updateNavigationCapability(factoryResetNavigationItem, true);
   renderFirmwareNavigationTags();
   window.dispatchEvent(new CustomEvent('uvstudio:navigationcapabilitieschange'));
 }

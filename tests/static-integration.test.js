@@ -557,8 +557,8 @@ test('adapts tool badges to the connected firmware generation', () => {
   assert.equal(context.factoryResetNavigationTag.hidden, true);
   context.applyCapabilities({ apps: true, externalFlash: false });
   assert.equal(context.appsNavigationItem.dataset.capabilityDisabled, 'true');
-  assert.equal(context.externalFlashNavigationItem.dataset.capabilityDisabled, 'true');
-  assert.equal(context.factoryResetNavigationItem.dataset.capabilityDisabled, 'true');
+  assert.equal(context.externalFlashNavigationItem.dataset.capabilityDisabled, undefined);
+  assert.equal(context.factoryResetNavigationItem.dataset.capabilityDisabled, undefined);
   assert.equal(context.appsNavigationTag.hidden, false);
   assert.equal(context.appsNavigationTag['data-i18n'], 'studio_nav_labs_only');
   assert.equal(context.externalFlashNavigationTag.hidden, false);
@@ -567,12 +567,12 @@ test('adapts tool badges to the connected firmware generation', () => {
   assert.equal(context.factoryResetNavigationTag['data-i18n'], 'studio_nav_labs_only');
   context.applyCapabilities({ apps: false, externalFlash: true });
   assert.equal(context.appsNavigationItem.dataset.capabilityDisabled, 'true');
-  assert.equal(context.externalFlashNavigationItem.dataset.capabilityDisabled, 'true');
-  assert.equal(context.factoryResetNavigationItem.dataset.capabilityDisabled, 'true');
+  assert.equal(context.externalFlashNavigationItem.dataset.capabilityDisabled, undefined);
+  assert.equal(context.factoryResetNavigationItem.dataset.capabilityDisabled, undefined);
   context.applyCapabilities(null);
   assert.equal(context.appsNavigationItem.dataset.capabilityKnown, 'false');
-  assert.equal(context.externalFlashNavigationItem.dataset.capabilityKnown, 'false');
-  assert.equal(context.factoryResetNavigationItem.dataset.capabilityKnown, 'false');
+  assert.equal(context.externalFlashNavigationItem.dataset.capabilityKnown, 'true');
+  assert.equal(context.factoryResetNavigationItem.dataset.capabilityKnown, 'true');
   events.length = 0;
 
   context.applyPolicy('F4HWN v7.0.0');
@@ -582,13 +582,13 @@ test('adapts tool badges to the connected firmware generation', () => {
   context.applyCapabilities({ apps: true, externalFlash: false });
   assert.equal(context.appsNavigationItem.dataset.capabilityDisabled, undefined);
   assert.equal(context.appsNavigationTag.hidden, true);
-  assert.equal(context.externalFlashNavigationItem.dataset.capabilityDisabled, 'true');
-  assert.equal(context.factoryResetNavigationItem.dataset.capabilityDisabled, 'true');
+  assert.equal(context.externalFlashNavigationItem.dataset.capabilityDisabled, undefined);
+  assert.equal(context.factoryResetNavigationItem.dataset.capabilityDisabled, undefined);
   assert.equal(context.externalFlashNavigationTag.hidden, false);
   assert.equal(context.externalFlashNavigationTag['data-i18n'], 'studio_nav_service_only');
   assert.equal(context.factoryResetNavigationTag.hidden, false);
   assert.equal(context.factoryResetNavigationTag['data-i18n'], 'studio_nav_service_only');
-  assert.equal(context.externalFlashNavigationItem['data-i18n-title'], 'studio_nav_unavailable_edition');
+  assert.equal(context.externalFlashNavigationItem['data-i18n-title'], undefined);
   assert.deepEqual(events, ['uvstudio:navigationcapabilitieschange']);
   context.applyCapabilities({ apps: false, externalFlash: true });
   assert.equal(context.appsNavigationItem.dataset.capabilityDisabled, 'true');
