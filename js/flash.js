@@ -303,28 +303,25 @@ function updateNavigationTag(element, key, hidden) {
 }
 
 function renderFirmwareNavigationTags() {
+  // External flash and factory reset are always navigable, so their capability
+  // tags would be misleading: keep them hidden in every firmware profile.
+  updateNavigationTag(externalFlashNavigationTag, 'studio_nav_labs_only', true);
+  updateNavigationTag(factoryResetNavigationTag, 'studio_nav_labs_only', true);
+
   if (!firmwareNavigationConnected) {
     updateNavigationTag(appsNavigationTag, 'studio_nav_labs_only', true);
-    updateNavigationTag(externalFlashNavigationTag, 'studio_nav_labs_only', true);
-    updateNavigationTag(factoryResetNavigationTag, 'studio_nav_labs_only', true);
     return;
   }
 
   const serviceNavigation = firmwareUsesServiceNavigation(connectedFirmwareName);
   if (serviceNavigation) {
     const fusionRequired = navigationCapabilities?.apps === false;
-    const serviceRequired = navigationCapabilities?.externalFlash === false;
     updateNavigationTag(appsNavigationTag, 'studio_nav_fusion_only', !fusionRequired);
-    updateNavigationTag(externalFlashNavigationTag, 'studio_nav_service_only', !serviceRequired);
-    updateNavigationTag(factoryResetNavigationTag, 'studio_nav_service_only', !serviceRequired);
     return;
   }
 
   const labsAppsRequired = navigationCapabilities?.apps === false;
-  const labsFlashRequired = navigationCapabilities?.externalFlash === false;
   updateNavigationTag(appsNavigationTag, 'studio_nav_labs_only', !labsAppsRequired);
-  updateNavigationTag(externalFlashNavigationTag, 'studio_nav_labs_only', !labsFlashRequired);
-  updateNavigationTag(factoryResetNavigationTag, 'studio_nav_labs_only', !labsFlashRequired);
 }
 
 function applyFirmwareNavigationPolicy(deviceInfoName, connected) {

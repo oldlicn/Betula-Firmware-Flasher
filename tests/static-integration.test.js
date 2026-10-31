@@ -561,9 +561,9 @@ test('adapts tool badges to the connected firmware generation', () => {
   assert.equal(context.factoryResetNavigationItem.dataset.capabilityDisabled, undefined);
   assert.equal(context.appsNavigationTag.hidden, false);
   assert.equal(context.appsNavigationTag['data-i18n'], 'studio_nav_labs_only');
-  assert.equal(context.externalFlashNavigationTag.hidden, false);
+  assert.equal(context.externalFlashNavigationTag.hidden, true);
   assert.equal(context.externalFlashNavigationTag['data-i18n'], 'studio_nav_labs_only');
-  assert.equal(context.factoryResetNavigationTag.hidden, false);
+  assert.equal(context.factoryResetNavigationTag.hidden, true);
   assert.equal(context.factoryResetNavigationTag['data-i18n'], 'studio_nav_labs_only');
   context.applyCapabilities({ apps: false, externalFlash: true });
   assert.equal(context.appsNavigationItem.dataset.capabilityDisabled, 'true');
@@ -584,10 +584,10 @@ test('adapts tool badges to the connected firmware generation', () => {
   assert.equal(context.appsNavigationTag.hidden, true);
   assert.equal(context.externalFlashNavigationItem.dataset.capabilityDisabled, undefined);
   assert.equal(context.factoryResetNavigationItem.dataset.capabilityDisabled, undefined);
-  assert.equal(context.externalFlashNavigationTag.hidden, false);
-  assert.equal(context.externalFlashNavigationTag['data-i18n'], 'studio_nav_service_only');
-  assert.equal(context.factoryResetNavigationTag.hidden, false);
-  assert.equal(context.factoryResetNavigationTag['data-i18n'], 'studio_nav_service_only');
+  assert.equal(context.externalFlashNavigationTag.hidden, true);
+  assert.equal(context.externalFlashNavigationTag['data-i18n'], 'studio_nav_labs_only');
+  assert.equal(context.factoryResetNavigationTag.hidden, true);
+  assert.equal(context.factoryResetNavigationTag['data-i18n'], 'studio_nav_labs_only');
   assert.equal(context.externalFlashNavigationItem['data-i18n-title'], undefined);
   assert.deepEqual(events, ['uvstudio:navigationcapabilitieschange']);
   context.applyCapabilities({ apps: false, externalFlash: true });

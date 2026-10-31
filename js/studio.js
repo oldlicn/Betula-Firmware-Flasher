@@ -23,7 +23,7 @@
     const version = window.UVSTUDIO_VERSION || "dev";
     const serialController = window.UVStudioSerial;
     const preferences = window.UVStudioPreferences;
-    const editionSensitiveRoutes = new Set(["apps", "external-flash", "factory-reset"]);
+    const editionSensitiveRoutes = new Set(["apps"]);
     let currentItem = null;
     let lastSerialSnapshot = serialController
         ? serialController.getSnapshot()
