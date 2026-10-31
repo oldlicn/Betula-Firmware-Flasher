@@ -102,7 +102,7 @@
     }
 
     function applyBranding() {
-        document.title = `UV Studio v${version} by F4HWN`;
+        document.title = `白头佬汉化F4HWN固件刷写工具 v${version}`;
         if (versionLabel) versionLabel.textContent = `v${version}`;
         if (aboutVersion) aboutVersion.textContent = `v${version}`;
     }
