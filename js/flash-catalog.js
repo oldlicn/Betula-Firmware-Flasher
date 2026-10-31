@@ -18,8 +18,14 @@
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
 
-  const REPO = 'armel/uv-k1-k5v3-firmware-custom';
-  const ARCHIVE_PATH = 'archive';
+  const REPO = (typeof globalThis !== 'undefined' && globalThis.UVStudioPreferences &&
+    typeof globalThis.UVStudioPreferences.catalogRepo === 'function')
+    ? globalThis.UVStudioPreferences.catalogRepo()
+    : 'armel/uv-k1-k5v3-firmware-custom';
+  const ARCHIVE_PATH = (typeof globalThis !== 'undefined' && globalThis.UVStudioPreferences &&
+    typeof globalThis.UVStudioPreferences.catalogArchivePath === 'function')
+    ? globalThis.UVStudioPreferences.catalogArchivePath()
+    : 'archive';
   // main, or the development branch when the hidden developer switch is on.
   const STABLE_BRANCH = (typeof globalThis !== 'undefined' && globalThis.UVStudioPreferences &&
     typeof globalThis.UVStudioPreferences.catalogBranch === 'function')
@@ -68,6 +74,17 @@
     const isDevelopment = lower === DEVELOPMENT_FILENAME;
     const versionMatch = lower.match(/[._-]v(\d+(?:\.\d+)*)/);
     const version = versionMatch ? versionMatch[1] : '';
+    // Trailing text after the version (e.g. "CN B" in
+    // "f4hwn.fieldops.v6.3.0 CN B.bin") is kept so same-version variants stay
+    // distinguishable in the dropdown. Standard names leave this empty.
+    let suffix = '';
+    if (versionMatch) {
+      suffix = name
+        .slice(versionMatch.index + versionMatch[0].length)
+        .replace(/\.bin$/i, '')
+        .replace(/^[.\s_-]+/, '')
+        .trim();
+    }
 
     let brand;
     let group;
@@ -94,7 +111,7 @@
       else { group = editionToken; model = modelToken === 'k1' ? 'K1' : (modelToken === 'k5v3' ? 'K5v3' : ''); }
     }
 
-    return { name, brand, group, model, version, isBeta, isSa818, isDevelopment };
+    return { name, brand, group, model, version, suffix, isBeta, isSa818, isDevelopment };
   }
 
   // Descending semantic comparison so v5.10.0 correctly outranks v5.9.0.
@@ -181,6 +198,7 @@
     // Kept in English like the other technical tags (stable / dev / stock).
     if (entry.isDevelopment) parts.push('⚠ Development · unstable');
     else parts.push(entry.version ? `v${entry.version}` : entry.name);
+    if (entry.suffix) parts.push(entry.suffix);
     let label = parts.join(' ');
     if (Number.isFinite(entry.size)) label += ` · ${Math.round(entry.size / 1024)} KB`;
     return label;

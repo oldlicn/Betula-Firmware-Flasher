@@ -44,7 +44,7 @@ test('ignores non-firmware assets such as boot logos', () => {
 test('classifies the general Fusion line and its variants', () => {
   assert.deepEqual(parseFirmwareName('f4hwn.fusion.v5.7.0.bin'), {
     name: 'f4hwn.fusion.v5.7.0.bin', brand: 'f4hwn', group: 'fusion', model: '',
-    version: '5.7.0', isBeta: false, isSa818: false, isDevelopment: false
+    version: '5.7.0', suffix: '', isBeta: false, isSa818: false, isDevelopment: false
   });
   assert.equal(parseFirmwareName('f4hwn.fusion.v5.0.1.beta.bin').isBeta, true);
   assert.equal(parseFirmwareName('f4hwn.fusion.v5.7.0.sa818.bin').isSa818, true);
@@ -169,4 +169,16 @@ test('formats compact, human option labels', () => {
 
   const stock = { group: 'stock', model: 'K1', version: '7.03.01', size: 62000 };
   assert.match(formatOptionLabel(stock), /^K1 v7\.03\.01 · \d+ KB$/);
+
+  // Trailing text after the version (e.g. "CN B" in a localized build) is shown
+  // so same-version variants stay distinguishable.
+  const localized = parseFirmwareName('f4hwn.fieldops.v6.3.0 CN B.bin');
+  assert.equal(localized.group, 'fieldops');
+  assert.equal(localized.version, '6.3.0');
+  assert.equal(localized.suffix, 'CN B');
+  localized.size = 86000;
+  assert.match(formatOptionLabel(localized), /^v6\.3\.0 CN B · \d+ KB$/);
+
+  // Standard names without a trailing suffix are unaffected.
+  assert.equal(parseFirmwareName('f4hwn.fusion.v5.7.0.bin').suffix, '');
 });
