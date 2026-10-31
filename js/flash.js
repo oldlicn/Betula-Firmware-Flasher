@@ -377,9 +377,9 @@ function applyNavigationCapabilities(capabilities) {
   }
 
   navigationCapabilities = resolvedCapabilities;
-  updateNavigationCapability(appsNavigationItem, resolvedCapabilities?.apps);
-  // External flash and factory reset stay navigable regardless of the capability
-  // probe: never grey them out or block clicks based on detection results.
+  // Apps, external flash and factory reset stay navigable regardless of the
+  // capability probe: never grey them out or block clicks based on detection.
+  updateNavigationCapability(appsNavigationItem, true);
   updateNavigationCapability(externalFlashNavigationItem, true);
   updateNavigationCapability(factoryResetNavigationItem, true);
   renderFirmwareNavigationTags();

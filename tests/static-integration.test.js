@@ -556,7 +556,7 @@ test('adapts tool badges to the connected firmware generation', () => {
   assert.equal(context.externalFlashNavigationTag.hidden, true);
   assert.equal(context.factoryResetNavigationTag.hidden, true);
   context.applyCapabilities({ apps: true, externalFlash: false });
-  assert.equal(context.appsNavigationItem.dataset.capabilityDisabled, 'true');
+  assert.equal(context.appsNavigationItem.dataset.capabilityDisabled, undefined);
   assert.equal(context.externalFlashNavigationItem.dataset.capabilityDisabled, undefined);
   assert.equal(context.factoryResetNavigationItem.dataset.capabilityDisabled, undefined);
   assert.equal(context.appsNavigationTag.hidden, false);
@@ -566,11 +566,11 @@ test('adapts tool badges to the connected firmware generation', () => {
   assert.equal(context.factoryResetNavigationTag.hidden, true);
   assert.equal(context.factoryResetNavigationTag['data-i18n'], 'studio_nav_labs_only');
   context.applyCapabilities({ apps: false, externalFlash: true });
-  assert.equal(context.appsNavigationItem.dataset.capabilityDisabled, 'true');
+  assert.equal(context.appsNavigationItem.dataset.capabilityDisabled, undefined);
   assert.equal(context.externalFlashNavigationItem.dataset.capabilityDisabled, undefined);
   assert.equal(context.factoryResetNavigationItem.dataset.capabilityDisabled, undefined);
   context.applyCapabilities(null);
-  assert.equal(context.appsNavigationItem.dataset.capabilityKnown, 'false');
+  assert.equal(context.appsNavigationItem.dataset.capabilityKnown, 'true');
   assert.equal(context.externalFlashNavigationItem.dataset.capabilityKnown, 'true');
   assert.equal(context.factoryResetNavigationItem.dataset.capabilityKnown, 'true');
   events.length = 0;
@@ -591,7 +591,7 @@ test('adapts tool badges to the connected firmware generation', () => {
   assert.equal(context.externalFlashNavigationItem['data-i18n-title'], undefined);
   assert.deepEqual(events, ['uvstudio:navigationcapabilitieschange']);
   context.applyCapabilities({ apps: false, externalFlash: true });
-  assert.equal(context.appsNavigationItem.dataset.capabilityDisabled, 'true');
+  assert.equal(context.appsNavigationItem.dataset.capabilityDisabled, undefined);
   assert.equal(context.appsNavigationTag.hidden, false);
   assert.equal(context.appsNavigationTag['data-i18n'], 'studio_nav_fusion_only');
   assert.equal(context.externalFlashNavigationItem.dataset.capabilityDisabled, undefined);
