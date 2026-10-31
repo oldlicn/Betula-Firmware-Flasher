@@ -24,10 +24,6 @@
     const serialController = window.UVStudioSerial;
     const preferences = window.UVStudioPreferences;
     const editionSensitiveRoutes = new Set();
-    // External flash and factory reset stay reachable without a live serial link:
-    // the menu entries open their views, while the actual write still connects
-    // to the radio internally when the user starts the operation.
-    const serialFreeRoutes = new Set(["external-flash", "factory-reset"]);
     let currentItem = null;
     let lastSerialSnapshot = serialController
         ? serialController.getSnapshot()
@@ -267,7 +263,7 @@
                 return;
             }
         }
-        if (settings.ensureSerial && requiresRuntimeSerial && !serialFreeRoutes.has(item.dataset.route)) {
+        if (settings.ensureSerial && requiresRuntimeSerial) {
             const connected = await ensureRuntimeSerial(serialOwner);
             if (!connected || item.dataset.capabilityDisabled === "true") {
                 if (currentItem) replaceHash(currentItem.dataset.route);
@@ -315,7 +311,7 @@
     }
 
     items.forEach(item => item.addEventListener("click", () => {
-        void activate(item, { ensureSerial: true });
+        void activate(item, { ensureSerial: false });
     }));
 
     actionTabs.forEach(tab => tab.addEventListener("click", async () => {

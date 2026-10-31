@@ -1115,10 +1115,10 @@ test('translates radio help and exposes every global serial status label', () =>
   assert.match(html, /data-i18n-aria-label="radio_led_state"/);
 });
 
-test('requires one reusable runtime connection for every menu except Flash and About', () => {
+test('opens every menu without requiring a live serial link first', () => {
   assert.match(studioSource, /const isFirmwareFlash = app === "tools" && toolView === "flash"/);
   assert.match(studioSource, /const requiresRuntimeSerial = Boolean\(serialOwner\) && !isFirmwareFlash/);
-  assert.match(studioSource, /activate\(item, \{ ensureSerial: true \}\)/);
+  assert.match(studioSource, /activate\(item, \{ ensureSerial: false \}\)/);
   assert.match(studioSource, /await ensureRuntimeSerial\("tools"\)/);
   assert.match(viewerSource, /uvstudio:serialrequired/);
   assert.match(flashSource, /uvstudio:serialrequired/);
