@@ -1,0 +1,20 @@
+# OS / editor junk
+.DS_Store
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+*.stackdump
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*~
+*.tmp
+*.bak
+
+# Node (kept for safety, none present)
+node_modules/
+
+# Local logs
+*.log
